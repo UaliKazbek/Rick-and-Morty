@@ -7,7 +7,7 @@ pip install flask google-genai
 
 ### Установка API-ключа
 В файле app.py замените переменную:
-API_KEY = "ВАШ_API_KEY"
+API_KEY = ""
 
 ### Запуск
 python app.py
@@ -32,7 +32,6 @@ python app.py
 - Python + Flask → лёгкий старт и простая серверная логика.
 - HTML + CSS + JS (Vanilla) → достаточно для статических страниц и простого чата.
 - Google GenAI API → мощные возможности генерации текста, интеграция с внешним AI.
-- 
 
 
 
