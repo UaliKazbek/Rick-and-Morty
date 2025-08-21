@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI</title>
+    <link rel="stylesheet" href="../static/ai.css">
+</head>
+
+<header>
+    <div class="header">
+        <nav>
+            <a class="logo">Rick and Morty</a>
+            <a href="/" class="home">Главная</a>
+            <a href="/characters" class="characters">Персонажи</a>
+            <a href="/episodes" class="episodes">Эпизоды</a>
+            <a href="/locations" class="locations">Локации</a>
+            <a href="/ai" class="ai">AI чат</a>
+            <input type="text" class="search" placeholder="Поиск...">
+        </nav>
+    </div>
+</header>
+
+<body>
+    <div class="container">
+        <div class="div1">
+            <p class="t">AI Чат-бот</p>
+            <p class="t1">Задавайте вопросы о вселенной Рика и Морти</p>
+        </div>
+    </div>
+    <div class="chat-container">
+        <div class="chat-header"> AI Чат-бот</div>
+        <div class="chat-messages" id="chatMessages"></div>
+        <div class="chat-input">
+            <input type="text" id="userInput" placeholder="Введите сообщение...">
+            <button onclick="sendMessage()">Отправить</button>
+        </div>
+    </div>
+
+
+    <script>
+        const chatMessages = document.getElementById("chatMessages");
+        const userInput = document.getElementById("userInput");
+
+        function addMessage(text, sender) {
+            const msg = document.createElement("div");
+            msg.classList.add("message", sender);
+            msg.textContent = text;
+            chatMessages.appendChild(msg);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        async function sendMessage() {
+            const text = userInput.value.trim();
+            if (!text) return;
+
+            addMessage(text, "user");
+            userInput.value = "";
+
+            try {
+                const response = await fetch("/chat", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ message: text }),
+                });
+
+                const data = await response.json();
+                addMessage(data.reply, "bot");
+            } catch (error) {
+                addMessage("Ошибка: не удалось получить ответ от API.", "bot");
+            }
+        }
+    </script>
+</body>
+
+</html>
