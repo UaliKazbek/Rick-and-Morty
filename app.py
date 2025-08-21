@@ -4,7 +4,7 @@ from flask import Flask, request, jsonify, render_template
 from google import genai
 from google.genai import types
 
-API_KEY = "AIzaSyCscYelo1TzjoMDeLs1_N3FENBtf2aEWqk"
+API_KEY = "your api"
 
 client = genai.Client(api_key=API_KEY)
 
@@ -62,5 +62,6 @@ def chat():
 
 if __name__ == "__main__":
     app.run(debug=True)
+
 
 
